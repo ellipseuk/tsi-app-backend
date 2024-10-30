@@ -1,6 +1,6 @@
-const axios = require('axios');
-const qs = require('qs');
-const fs = require('fs');
+import axios from 'axios';
+import { stringify } from 'qs';
+import { writeFileSync } from 'fs';
 
 const login = async (req, res) => {
   const { studentCode, password } = req.body;
@@ -12,7 +12,7 @@ const login = async (req, res) => {
   try {
     const loginUrl = `${process.env.MYTSI_URL}/login`;
 
-    const loginData = qs.stringify({
+    const loginData = stringify({
       username: studentCode,
       password: password,
     });
@@ -34,7 +34,7 @@ const login = async (req, res) => {
 
     if (redirectLocation === '/' && cookies) {
       // If the redirect is to `/` and cookies are set, we consider the login successful.
-      fs.writeFileSync('cookies.txt', cookies.join(';'));
+      writeFileSync('cookies.txt', cookies.join(';'));
       res.status(200).json({ message: 'Login successful' });
     } else {
       // If redirect to `/login` then login failed
@@ -46,7 +46,7 @@ const login = async (req, res) => {
       const cookies = error.response.headers['set-cookie'];
 
       if (redirectLocation === '/' && cookies) {
-        fs.writeFileSync('cookies.txt', cookies.join(';'));
+        writeFileSync('cookies.txt', cookies.join(';'));
         return res.status(200).json({ message: 'Login successful' });
       } else if (redirectLocation === '/login') {
         return res.status(401).json({ error: 'Invalid credentials' });
@@ -58,4 +58,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+export default { login };
