@@ -1,5 +1,6 @@
 import express, { json } from 'express';
 import authRoutes from './routes/auth.js';
+import scheduleRoute from './routes/schedule.js';
 import 'dotenv/config';
 
 const app = express();

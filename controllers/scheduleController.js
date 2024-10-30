@@ -1,6 +1,6 @@
-const axios = require('axios');
-const xml2js = require('xml2js'); // Импортируем xml2js
-const { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, getUnixTime } = require('date-fns');
+import axios from 'axios';
+import xml2js from 'xml2js'; // Импортируем xml2js
+import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, getUnixTime } from 'date-fns';
 
 const convertToUnixTimestamp = (timeFrame) => {
     const now = new Date();
@@ -26,12 +26,11 @@ const convertToUnixTimestamp = (timeFrame) => {
     }
 };
 
-exports.getSchedule = async (req, res) => {
-    const { timeFrame = 'day', teachers = '', rooms = '', group_id, lang = 'en' } = req.body; 
+// Экспортируем функцию как default
+export const getSchedule = async (req, res) => {
+    const { timeFrame = 'day', teachers = '', rooms = '', group_id = '', lang = 'en' } = req.body; 
 
-    if (!group_id) {
-        return res.status(400).json({ error: "Group ID is required" });
-    }
+   
 
     let from, to;
     try {
@@ -69,3 +68,5 @@ exports.getSchedule = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch schedule" });
     }
 };
+
+export default getSchedule; // Экспортируйте функцию по умолчанию

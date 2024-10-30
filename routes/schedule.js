@@ -1,7 +1,12 @@
-const express = require('express');
+
+import express from 'express';
+import { getSchedule } from '../controllers/scheduleController.js';
+
+// Initialize the router
 const router = express.Router();
-const scheduleController = require('../controllers/scheduleController');
 
-router.post('/', scheduleController.getSchedule);
+// Define the routes
+router.post('/', getSchedule);
 
-module.exports = router;
+// Export the router
+export default router;
