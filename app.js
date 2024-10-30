@@ -1,11 +1,11 @@
-const express = require('express');
-const cors = require('cors'); // Импортируем cors
-const scheduleRoute = require('./routes/schedule'); // Подключаем маршруты расписания
+import express, { json } from 'express';
+import authRoutes from './routes/auth.js';
+import 'dotenv/config';
 
 const app = express();
 
-app.use(cors()); // Используем cors для разрешения CORS
-app.use(express.json()); // Middleware для парсинга JSON
+app.use(json());
+
 
 app.use('/schedule', scheduleRoute); // Подключаем маршруты
 
