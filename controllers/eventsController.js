@@ -19,7 +19,6 @@ export const getEvents = async (req, res) => {
 			const items = result.rss.channel.item
 			const events = items
 				.filter(item => {
-					// Проверка, что guid существует и является строкой
 					const guid = item.guid ? item.guid.toString() : ''
 					return guid.includes('post_type=events') || item.event_date
 				})
