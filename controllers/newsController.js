@@ -24,7 +24,6 @@ export const getNews = async (req, res) => {
 					title: item.title,
 					link: item.link,
 					date: item.pubDate,
-					category: item.category || 'General',
 					description: item.contentSnippet || $(content).text() || '',
 					image: imageUrl,
 				}
