@@ -3,6 +3,7 @@ import express, { json } from 'express';
 import authRoutes from './routes/auth.js';
 import newsRoutes from './routes/news.js';
 import eventsRoutes from './routes/events.js';
+import staffRoutes from './routes/staff.js';
 
 import 'dotenv/config';
 
@@ -13,6 +14,7 @@ app.use(json());
 app.use('/api/auth', authRoutes);
 app.use('/api', newsRoutes);
 app.use('/api', eventsRoutes);
+app.use('/api', staffRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
