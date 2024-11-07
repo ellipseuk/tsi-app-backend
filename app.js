@@ -1,6 +1,5 @@
 import express, { json } from 'express';
 
-import authRoutes from './routes/auth.js';
 import newsRoutes from './routes/news.js';
 import eventsRoutes from './routes/events.js';
 import staffRoutes from './routes/staff.js';
@@ -11,7 +10,6 @@ const app = express();
 
 app.use(json());
 
-app.use('/api/auth', authRoutes);
 app.use('/api', newsRoutes);
 app.use('/api', eventsRoutes);
 app.use('/api', staffRoutes);
