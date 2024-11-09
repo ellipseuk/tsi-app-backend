@@ -1,28 +1,34 @@
 import 'dotenv/config';
 import fetch from 'node-fetch';
 
-const authenticateURL = process.env.AUTH_URL;
+const AUTHENTICATION_URL = process.env.AUTH_URL;
 
-export const authentication = async (req, res) => {
+export const authenticateUser = async (req, res) => {
+    if (!AUTHENTICATION_URL) {
+        console.error('Authentication URL is not defined');
+        return res.status(500).json({ error: 'Internal server error. Authentication URL is missing.' });
+    }
+
     const { username, password } = req.body;
 
-    const credentials = {
-        username,
-        password
-    };
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required.' });
+    }
 
-    const authenticateRequest = {
+    const userCredentials = { username, password };
+
+    const fetchOptions = {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(credentials)
+        body: JSON.stringify(userCredentials)
     };
 
     try {
-        const response = await fetch(authenticateURL, authenticateRequest);
-        const { status } = response;
+        const authResponse = await fetch(AUTHENTICATION_URL, fetchOptions);
+        const { status } = authResponse;
 
         if (status === 401) {
             return res.status(401).json({ error: 'Incorrect username or password. Please try again.' });
@@ -34,9 +40,9 @@ export const authentication = async (req, res) => {
             return res.status(status).json({ error: 'An unexpected error occurred. Please try again.' });
         }
 
-        const userProfile = await response.json();
+        const userProfile = await authResponse.json();
         return res.status(200).json(userProfile);
-        
+
     } catch (error) {
         if (error.name === 'FetchError') {
             console.error('Network error:', error.message);
