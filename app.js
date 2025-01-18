@@ -5,8 +5,6 @@ import express, { json } from "express";
 
 import newsRoutes from './routes/news.js';
 import eventsRoutes from './routes/events.js';
-import newsRoutes from "./routes/news.js";
-import eventsRoutes from "./routes/events.js";
 
 const app = express();
 
