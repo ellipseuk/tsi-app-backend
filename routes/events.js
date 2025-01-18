@@ -10,5 +10,3 @@ const eventService = new EventService(rssRepository);
 const eventController = new EventController(eventService);
 
 router.get('/events', eventController.getEvents.bind(eventController));
-
-export default router;
