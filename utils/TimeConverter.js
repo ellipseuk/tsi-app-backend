@@ -1,12 +1,13 @@
-class UnixTimeConverter {
-  dateToUnix(date) {
+class TimeConverter {
+  // Use ISO 8601 format: 2025-01-10T10:30:00.000Z
+  ToUnix(date) {
     return parseInt((new Date(date).getTime() / 1000).toFixed(0));
   }
 
-  unixToDatetime(unixTime) {
+  ToDatetime(unixTime) {
     var datetime = new Date(unixTime * 1000);
     return datetime.toISOString();
   }
 }
 
-export default UnixTimeConverter;
+export default TimeConverter;
